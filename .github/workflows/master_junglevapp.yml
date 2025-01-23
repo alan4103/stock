@@ -22,15 +22,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://mcr.microsoft.com/
-        username: ${{ secrets.AzureAppService_ContainerUsername_32d71dcb86d942feb28763bdd14a6a6c }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_1b4abb4613be4dfe87c036466996887c }}
+        registry: https://index.docker.io/v1/
+        username: ${{ secrets.AzureAppService_ContainerUsername_5c8e6fb742724868b4d7025e196b0d8d }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_c16f59ef3c024a7d80f5a120ef2fdc02 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_32d71dcb86d942feb28763bdd14a6a6c }}/appsvc/staticsite:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_5c8e6fb742724868b4d7025e196b0d8d }}/alan4103/test:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'junglevapp'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_757d992bed634e5fa9786019faf35796 }}
-        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_32d71dcb86d942feb28763bdd14a6a6c }}/appsvc/staticsite:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_4382b7b3e9e54a00a0b80e24775cce1a }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_5c8e6fb742724868b4d7025e196b0d8d }}/alan4103/test:${{ github.sha }}'
